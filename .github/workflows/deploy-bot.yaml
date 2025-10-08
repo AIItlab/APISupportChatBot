@@ -24,38 +24,38 @@ jobs:
       - name: Ensure Client Lockfile
         shell: powershell
         run: |
-          if (!(Test-Path "./client/package-lock.json")) {
-            Write-Host "WARNING: ./client/package-lock.json is missing - continuing without cache."
+          if (!(Test-Path "client\package-lock.json")) {
+            Write-Host "WARNING: client\package-lock.json is missing - continuing without cache."
           }
 
       - name: Install Client Dependencies
-        working-directory: ./client
+        working-directory: client
         run: npm install
 
       - name: Build React App
-        working-directory: ./client
+        working-directory: client
         run: npm run build
 
       # --- SERVER (Node.js) ---
       - name: Ensure Server Lockfile
         shell: powershell
         run: |
-          if (!(Test-Path "./server/package-lock.json")) {
-            Write-Host "WARNING: ./server/package-lock.json is missing - continuing without cache."
+          if (!(Test-Path "server\package-lock.json")) {
+            Write-Host "WARNING: server\package-lock.json is missing - continuing without cache."
           }
 
       - name: Install Server Dependencies
-        working-directory: ./server
+        working-directory: server
         run: npm install
 
       - name: Copy React Build into Server Public
         shell: powershell
         run: |
-          if (Test-Path "./server/public") {
-            Remove-Item "./server/public" -Recurse -Force
+          if (Test-Path "server\public") {
+            Remove-Item "server\public" -Recurse -Force
           }
-          New-Item -ItemType Directory -Force -Path "./server/public" | Out-Null
-          Copy-Item "./client/build/*" "./server/public/" -Recurse -Force
+          New-Item -ItemType Directory -Force -Path "server\public" | Out-Null
+          Copy-Item "client\build\*" "server\public\" -Recurse -Force
 
       # --- DEPLOYMENT ---
       - name: Stop Existing App (PM2 or Node)
@@ -64,12 +64,13 @@ jobs:
           pm2 stop all || Write-Host "No running processes to stop."
 
       - name: Start Node App via PM2
-        working-directory: ./server
+        working-directory: server
         shell: powershell
         run: |
           pm2 start server.js --name "my-app"
           pm2 save
 
+      # --- FINAL MESSAGE ---
       - name: Deployment Done
         shell: powershell
         run: |
