@@ -3,11 +3,11 @@ name: Deploy Node + React App (Self-Hosted Windows)
 on:
   push:
     branches:
-      - main  # or your deploy branch
+      - main
 
 jobs:
   build-and-deploy:
-    runs-on: [self-hosted, windows]  # 👈 Runs directly on your Windows Server
+    runs-on: [self-hosted, windows]
 
     steps:
       # --- CHECKOUT ---
@@ -22,7 +22,7 @@ jobs:
 
       # --- CLIENT (React App) ---
       - name: Ensure Client Lockfile
-        shell: pwsh
+        shell: powershell
         run: |
           if (!(Test-Path "./client/package-lock.json")) {
             Write-Host "WARNING: ./client/package-lock.json is missing - continuing without cache."
@@ -38,7 +38,7 @@ jobs:
 
       # --- SERVER (Node.js) ---
       - name: Ensure Server Lockfile
-        shell: pwsh
+        shell: powershell
         run: |
           if (!(Test-Path "./server/package-lock.json")) {
             Write-Host "WARNING: ./server/package-lock.json is missing - continuing without cache."
@@ -49,7 +49,7 @@ jobs:
         run: npm install
 
       - name: Copy React Build into Server Public
-        shell: pwsh
+        shell: powershell
         run: |
           if (Test-Path "./server/public") {
             Remove-Item "./server/public" -Recurse -Force
@@ -59,19 +59,18 @@ jobs:
 
       # --- DEPLOYMENT ---
       - name: Stop Existing App (PM2 or Node)
-        shell: pwsh
+        shell: powershell
         run: |
           pm2 stop all || Write-Host "No running processes to stop."
 
       - name: Start Node App via PM2
         working-directory: ./server
-        shell: pwsh
+        shell: powershell
         run: |
           pm2 start server.js --name "my-app"
           pm2 save
 
-      # --- FINAL MESSAGE ---
       - name: Deployment Done
-        shell: pwsh
+        shell: powershell
         run: |
           Write-Host "✅ Deployment complete on $env:COMPUTERNAME"
