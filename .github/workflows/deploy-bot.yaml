@@ -20,6 +20,13 @@ jobs:
           cache: 'npm'
 
       # --- CLIENT (React App) ---
+      - name: Ensure Client Lockfile
+        run: |
+          if (!(Test-Path ./client/package-lock.json)) {
+            echo "ERROR: ./client/package-lock.json is missing. Please run npm install in ./client and commit the lock file."
+            exit 1
+          }
+
       - name: Install Client Dependencies
         working-directory: ./client
         run: npm ci
@@ -29,6 +36,13 @@ jobs:
         run: npm run build
 
       # --- SERVER (Node.js) ---
+      - name: Ensure Server Lockfile
+        run: |
+          if (!(Test-Path ./server/package-lock.json)) {
+            echo "ERROR: ./server/package-lock.json is missing. Please run npm install in ./server and commit the lock file."
+            exit 1
+          }
+
       - name: Install Server Dependencies
         working-directory: ./server
         run: npm ci
