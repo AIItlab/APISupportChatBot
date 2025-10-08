@@ -21,52 +21,61 @@ jobs:
           node-version: 20
 
       # --- CLIENT (React App) ---
-      - name: Ensure Client Lockfile
+      - name: Ensure Client Lockfile & Install Dependencies
         shell: powershell
         run: |
-          if (!(Test-Path "client\package-lock.json")) {
-            Write-Host "WARNING: client\package-lock.json is missing - continuing without cache."
+          if (-Not (Test-Path "client")) {
+            Write-Host "ERROR: client folder does not exist."
+            exit 1
+          }
+          Set-Location "client"
+
+          if (-Not (Test-Path "package-lock.json")) {
+            Write-Host "WARNING: package-lock.json is missing - continuing without cache."
           }
 
-      - name: Install Client Dependencies
-        working-directory: client
-        run: npm install
-
-      - name: Build React App
-        working-directory: client
-        run: npm run build
+          npm install
+          npm run build
 
       # --- SERVER (Node.js) ---
-      - name: Ensure Server Lockfile
+      - name: Ensure Server Lockfile & Install Dependencies
         shell: powershell
         run: |
-          if (!(Test-Path "server\package-lock.json")) {
-            Write-Host "WARNING: server\package-lock.json is missing - continuing without cache."
+          if (-Not (Test-Path "server")) {
+            Write-Host "ERROR: server folder does not exist."
+            exit 1
+          }
+          Set-Location "server"
+
+          if (-Not (Test-Path "package-lock.json")) {
+            Write-Host "WARNING: package-lock.json is missing - continuing without cache."
           }
 
-      - name: Install Server Dependencies
-        working-directory: server
-        run: npm install
+          npm install
 
+      # --- COPY CLIENT BUILD TO SERVER PUBLIC ---
       - name: Copy React Build into Server Public
         shell: powershell
         run: |
-          if (Test-Path "server\public") {
-            Remove-Item "server\public" -Recurse -Force
-          }
-          New-Item -ItemType Directory -Force -Path "server\public" | Out-Null
-          Copy-Item "client\build\*" "server\public\" -Recurse -Force
+          Set-Location "server"
 
-      # --- DEPLOYMENT ---
+          if (Test-Path "public") {
+            Remove-Item "public" -Recurse -Force
+          }
+
+          New-Item -ItemType Directory -Force -Path "public" | Out-Null
+          Copy-Item "../client/build/*" "public/" -Recurse -Force
+
+      # --- DEPLOYMENT (PM2) ---
       - name: Stop Existing App (PM2 or Node)
         shell: powershell
         run: |
           pm2 stop all || Write-Host "No running processes to stop."
 
       - name: Start Node App via PM2
-        working-directory: server
         shell: powershell
         run: |
+          Set-Location "server"
           pm2 start server.js --name "my-app"
           pm2 save
 
