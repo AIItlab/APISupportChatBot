@@ -1,13 +1,13 @@
-name: Deploy to Windows Server
+name: Deploy Node + React App (Self-Hosted Windows)
 
 on:
   push:
     branches:
-      - main   # deploy only when main branch is pushed
+      - main  # or your deploy branch
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
+  build-and-deploy:
+    runs-on: [self-hosted, windows]  # 👈 Runs directly on your Windows Server
 
     steps:
       - name: Checkout Repository
@@ -17,8 +17,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: 'npm'
 
-      # Install and build client
+      # --- CLIENT (React App) ---
       - name: Install Client Dependencies
         working-directory: ./client
         run: npm ci
@@ -27,57 +28,29 @@ jobs:
         working-directory: ./client
         run: npm run build
 
-      # Install server dependencies
+      # --- SERVER (Node.js) ---
       - name: Install Server Dependencies
         working-directory: ./server
         run: npm ci
 
-      # Copy React build to server folder
-      - name: Copy React Build to Server Public Folder
+      - name: Copy React Build into Server Public
         run: |
-          mkdir -p ./server/public
-          cp -r ./client/build/* ./server/public/
+          if (Test-Path .\server\public) { Remove-Item .\server\public -Recurse -Force }
+          mkdir .\server\public
+          Copy-Item .\client\build\* .\server\public\ -Recurse
 
-      # Zip everything to upload
-      - name: Archive production files
+      # --- DEPLOYMENT ---
+      - name: Stop Existing App (PM2 or Node)
         run: |
-          zip -r app.zip ./server
+          pm2 stop all || echo "No running processes"
 
-      # Deploy to Windows Server
-      - name: Deploy to Windows Server via WinRM
-        uses: P3TERX/ssh2actions@v1
-        with:
-          host: ${{ secrets.WINDOWS_HOST }}
-          username: ${{ secrets.WINDOWS_USER }}
-          password: ${{ secrets.WINDOWS_PASSWORD }}
-          port: 5985
-          command: |
-            powershell -Command "
-            cd C:\apps;
-            if (Test-Path .\app.zip) { Remove-Item .\app.zip -Force };
-            "
+      - name: Start Node App via PM2
+        working-directory: ./server
+        run: |
+          pm2 start server.js --name "my-app"
+          pm2 save
 
-      - name: Upload app.zip to Windows Server
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.WINDOWS_HOST }}
-          username: ${{ secrets.WINDOWS_USER }}
-          password: ${{ secrets.WINDOWS_PASSWORD }}
-          source: "app.zip"
-          target: "C:\\apps\\"
-
-      - name: Extract and Restart App
-        uses: P3TERX/ssh2actions@v1
-        with:
-          host: ${{ secrets.WINDOWS_HOST }}
-          username: ${{ secrets.WINDOWS_USER }}
-          password: ${{ secrets.WINDOWS_PASSWORD }}
-          port: 5985
-          command: |
-            powershell -Command "
-              cd C:\apps;
-              Expand-Archive -Force app.zip -DestinationPath C:\apps\app;
-              cd C:\apps\app\server;
-              npm install --production;
-              pm2 restart all;
-            "
+      # --- OPTIONAL ---
+      - name: Clean up old files
+        run: |
+          echo "Deployment complete on $env:COMPUTERNAME"
