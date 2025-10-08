@@ -10,10 +10,11 @@ jobs:
     runs-on: [self-hosted, windows]  # 👈 Runs directly on your Windows Server
 
     steps:
+      # --- CHECKOUT ---
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      # Node.js setup (no cache)
+      # --- NODE SETUP ---
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -21,9 +22,10 @@ jobs:
 
       # --- CLIENT (React App) ---
       - name: Ensure Client Lockfile
+        shell: pwsh
         run: |
-          if (!(Test-Path ./client/package-lock.json)) {
-            echo "WARNING: ./client/package-lock.json is missing — continuing without cache."
+          if (!(Test-Path "./client/package-lock.json")) {
+            Write-Host "WARNING: ./client/package-lock.json is missing - continuing without cache."
           }
 
       - name: Install Client Dependencies
@@ -36,9 +38,10 @@ jobs:
 
       # --- SERVER (Node.js) ---
       - name: Ensure Server Lockfile
+        shell: pwsh
         run: |
-          if (!(Test-Path ./server/package-lock.json)) {
-            echo "WARNING: ./server/package-lock.json is missing — continuing without cache."
+          if (!(Test-Path "./server/package-lock.json")) {
+            Write-Host "WARNING: ./server/package-lock.json is missing - continuing without cache."
           }
 
       - name: Install Server Dependencies
@@ -46,23 +49,29 @@ jobs:
         run: npm install
 
       - name: Copy React Build into Server Public
+        shell: pwsh
         run: |
-          if (Test-Path .\server\public) { Remove-Item .\server\public -Recurse -Force }
-          mkdir .\server\public
-          Copy-Item .\client\build\* .\server\public\ -Recurse
+          if (Test-Path "./server/public") {
+            Remove-Item "./server/public" -Recurse -Force
+          }
+          New-Item -ItemType Directory -Force -Path "./server/public" | Out-Null
+          Copy-Item "./client/build/*" "./server/public/" -Recurse -Force
 
       # --- DEPLOYMENT ---
       - name: Stop Existing App (PM2 or Node)
+        shell: pwsh
         run: |
-          pm2 stop all || echo "No running processes"
+          pm2 stop all || Write-Host "No running processes to stop."
 
       - name: Start Node App via PM2
         working-directory: ./server
+        shell: pwsh
         run: |
           pm2 start server.js --name "my-app"
           pm2 save
 
-      # --- FINAL ---
+      # --- FINAL MESSAGE ---
       - name: Deployment Done
+        shell: pwsh
         run: |
-          echo "✅ Deployment complete on $env:COMPUTERNAME"
+          Write-Host "✅ Deployment complete on $env:COMPUTERNAME"
