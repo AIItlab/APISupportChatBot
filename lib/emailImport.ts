@@ -3,7 +3,7 @@
  * Supports CSV and JSON formats for bulk import of customer interactions
  */
 
-import * as fs from 'fs';
+import * as fs from 'node:fs';
 import * as path from 'path';
 import { parse } from 'csv-parse/sync';
 import { CustomerEmail } from './emailData';

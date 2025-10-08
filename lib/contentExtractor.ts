@@ -1,7 +1,7 @@
 /**
  * Content extractor module for processing documentation and FAQ content
  */
-import fs from 'fs';
+import fs from 'node:fs';
 import path from 'path';
 import { JSDOM } from 'jsdom';
 import { FAQ } from './faq';
