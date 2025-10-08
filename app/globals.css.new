@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --foreground-rgb: 0, 0, 0;
+    --background-rgb: 255, 255, 255;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    color: rgb(var(--foreground-rgb));
+    background: rgb(var(--background-rgb));
+  }
+}
+
+@layer components {
+  .documentation-section {
+    @apply relative max-w-4xl mx-auto;
+  }
+
+  .documentation-section img {
+    @apply max-w-full mx-auto rounded-lg shadow-sm;
+  }
+
+  .documentation-section .prose {
+    @apply text-gray-800 leading-relaxed;
+  }
+
+  .documentation-section .image-container {
+    @apply relative my-6;
+  }
+
+  .documentation-section .image-container img {
+    @apply w-full h-auto;
+  }
+}
+
+@layer utilities {
+  .animate-bounce-subtle {
+    animation: bounce-subtle 3s infinite;
+  }
+
+  ::-webkit-scrollbar {
+    @apply w-2 h-2;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-100;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 rounded hover:bg-gray-400;
+  }
+}
+
+@keyframes bounce-subtle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}

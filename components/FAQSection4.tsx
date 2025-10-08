@@ -1,0 +1,72 @@
+'use client';
+
+import React from 'react';
+
+interface FAQ {
+  question: string;
+  answer: React.ReactNode;
+}
+
+const FAQCard: React.FC<FAQ> = ({ question, answer }) => (
+  <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
+    <h3 className="text-lg font-semibold mb-3">{question}</h3>
+    <div className="text-gray-700">{answer}</div>
+  </div>
+);
+
+export default function FAQSection4(): React.ReactNode {
+  const faqs: FAQ[] = [
+    {
+      question: 'Q16: Is it possible to list all routes supported by Jazeera Airways?',
+      answer: (
+        <>
+          <p>For the list of routes supported by Jazeera Airways, Please use Available Stations API. The following is its URL in Swagger:</p>
+          <a href="https://rtestapi.jazeeraairways.com/swagger/#!/Resources/ApiJzV1AvailableStationsGet" className="text-blue-600 hover:text-blue-800 mt-2 block">
+            Available Stations API →
+          </a>
+        </>
+      )
+    },
+    {
+      question: 'Q17: I am getting the error message "nREDACTED:DuplicateLeg, Segment already booked". How can I solve it?',
+      answer: (
+        <>
+          <p>JourneyKey and AvailabilityKey should be added in request body. In case of roundtrips, another pair of the previous keys is added but for the return flight. This error returns in API response if the pairs of JourneyKey and AvailabilityKey are duplicate with the same values.</p>
+        </>
+      )
+    },
+    {
+      question: 'Q18: Is it possible to cancel a booking via APIs?',
+      answer: (
+        <>
+          <p>Booking cancelation is not possible via any APIs. For this, you can contact Jazeera Airways call center or via logging-in to your Jazeera airways portal account: In https://www.jazeeraairways.com/en-kw click login at top right corner.</p>
+          <p className="mt-2">Also, some fare classes are not refundable. For more information, refer to fare class options and rules: https://www.jazeeraairways.com/en-kw/plan/flight-information/fare-options</p>
+        </>
+      )
+    },
+    {
+      question: 'Q19: Is Hold PNR workflow available in DotRez API?',
+      answer: 'Hold booking functionality is currently not available thru API.'
+    },
+    {
+      question: 'Q20: What is token expiry / idle time?',
+      answer: 'Token idle timeout is 15 minutes. That is, the token will expire if idle time between each two consecutive API calls is greater than or equal to 15 minutes.'
+    },
+    {
+      question: 'Q21: Is it possible to add SSRs or assign a seat after paying and committing the booking?',
+      answer: (
+        <>
+          <p>Yes, it is. Generally it is better to add SSRs, assign seats or add any charged service before committing the booking. Still, if addition is possible. In this case, you need to pay the difference using addPaymentToBooking API. Then commit the booking using (PUT) CommitBooking API.</p>
+        </>
+      )
+    }
+  ];
+
+  return (
+    <div className="space-y-6">
+      {faqs.map((faq, index) => (
+        <FAQCard key={index} question={faq.question} answer={faq.answer} />
+      ))}
+    </div>
+  );
+};

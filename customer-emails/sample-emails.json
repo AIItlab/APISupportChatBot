@@ -1,0 +1,1122 @@
+[
+  {
+    "id": "email_json_001",
+    "date": "2024-02-01",
+    "customerQuestion": "I'm trying to book a flight but the website keeps showing 'no availability'. Are there any flights available?",
+    "supportAnswer": "This usually indicates that flights are fully booked for your selected dates. Please try: 1) Checking alternative dates (±3 days), 2) Different times of day, 3) Nearby airports if applicable. You can also join our waitlist for preferred dates, and we'll notify you if seats become available.",
+    "category": "availability",
+    "tags": ["availability", "booking", "waitlist", "alternative_dates"]
+  },
+  {
+    "id": "email_json_002", 
+    "date": "2024-02-05",
+    "customerQuestion": "I need to change my flight date. Is this possible and what are the charges?",
+    "supportAnswer": "Yes, you can change your flight date subject to availability and fare rules. Change fees vary depending on your fare type: Economy Basic (non-refundable, changes for fee), Economy Standard (changes allowed with fee), Business (flexible changes). Please visit 'Manage Booking' or contact customer service. The fare difference (if any) will also apply.",
+    "category": "changes",
+    "tags": ["flight_change", "fees", "fare_rules", "manage_booking"]
+  },
+  {
+    "id": "email_json_003",
+    "date": "2024-02-10", 
+    "customerQuestion": "Can I get a refund for my cancelled flight?",
+    "supportAnswer": "Refund eligibility depends on your fare type and reason for cancellation. If we cancelled the flight, you're entitled to a full refund. For voluntary cancellations: Economy Basic (non-refundable), Economy Standard (refundable with fees), Business (fully refundable). Medical emergencies may qualify for exceptions with proper documentation. Please submit your refund request through our website.",
+    "category": "refunds",
+    "tags": ["refund", "cancellation", "fare_rules", "medical_emergency"]
+  },
+  {
+    "id": "email_json_004",
+    "date": "2024-02-15",
+    "customerQuestion": "What is the booking flow sequence?",
+    "supportAnswer": "1. Get Token\n2. Get Availability\n3. Booking Quote\n4. Trip Sell\n5. Get Passengers\n6. Add Passenger and Contact\n7. Seat Availability (optional)\n8. Seat Assignment (optional)\n9. Get Available SSRs (optional)\n10. Add SSRs\n11. Add Travel Documents\n12. Check Balance\n13. Get Booking Details\n14. Add Payment\n15. Commit Booking\n16. Get Booking Status\n17. Logout",
+    "category": "booking_flow",
+    "tags": ["booking", "sequence", "steps", "process"]
+  },
+  {
+    "id": "email_json_005",
+    "date": "2025-07-27",
+    "customerQuestion": "What should be done for IP whitelisting in test and production environments?",
+    "supportAnswer": "Check the server name and add IP addresses to the server. Use mode 1 for test and mode 2 for production.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_006",
+    "date": "2025-07-27",
+    "customerQuestion": "What steps are required for test certification validation?",
+    "supportAnswer": "Check the provided Excel sheet to validate the test cases. For scenarios involving extra baggage, seat, or SSRs, confirm their validation.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_007",
+    "date": "2025-07-27",
+    "customerQuestion": "What is the draft mail to be sent after certification is confirmed?",
+    "supportAnswer": "Thanks for sharing the test cases and confirming the validations. Looping Anitha from Finance Department for live certification process.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_008",
+    "date": "2025-07-27",
+    "customerQuestion": "What is the process to obtain LIVE API credentials?",
+    "supportAnswer": "1. Register the agency on the Jazeera Airways portal and share registration confirmation.\n2. Once Finance Department approves, the agency will receive production login credentials.\n3. Perform a test booking in production using passenger name 'Test Tester'. Share PNR for verification.\n4. Use default currencies (retrieved from availability response) for bookings.\n5. Production API URL: https://j9OTAapi.jazeeraairways.com/.\n6. Display baggage allowance dynamically as it varies by product and route.\n7. Use GET /api/jz/v1/AvailableStations to retrieve active stations, currencies, and routes. Update daily.\n8. Share the LIVE API ID and production server IP for whitelisting.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_009",
+    "date": "2025-07-27",
+    "customerQuestion": "What are the failed validation scenarios to be checked on the frontend before API calls?",
+    "supportAnswer": "- Booking where OB and IB flights have a time gap less than 90 minutes.\n- Booking for group of 10 PAX.\n- Booking more infants than adults.\n- Booking an infant whose date of birth is less than 14 days at travel time.\n- Use of extra baggage, seat, and meal (SSRs) should be tested and logs shared.\n- Phone number should be in format +countrycode-phone (e.g., +91-xxxxxxx), not (IN-phone number).",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_010",
+    "date": "2025-07-27",
+    "customerQuestion": "What should be considered regarding currency usage in bookings?",
+    "supportAnswer": "Always use the default currency returned from the availability response. Fares will be provided in the origin station\u2019s default currency regardless of the currency passed in the request.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_011",
+    "date": "2025-07-27",
+    "customerQuestion": "How should extra baggage allowance be displayed?",
+    "supportAnswer": "Baggage allowance should be displayed dynamically since it varies by product class and route. Refer to jazeeraairways.com for EL, EV, and EE fare features.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_012",
+    "date": "2025-07-27",
+    "customerQuestion": "What endpoint provides information on active stations and routes?",
+    "supportAnswer": "Use GET /api/jz/v1/AvailableStations to retrieve data on active stations, city pairs, and default currency. This data should be cached locally and refreshed daily.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_013",
+    "date": "2025-07-27",
+    "customerQuestion": "What should the user do if certifications fail?",
+    "supportAnswer": "Validate frontend handling for special conditions such as close connection times, group bookings, infant-to-adult ratios, and correct phone number formatting.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_014",
+    "date": "2025-07-27",
+    "customerQuestion": "What phone number format is accepted?",
+    "supportAnswer": "Phone numbers must be passed in the format +countrycode-phone number (e.g., +965-12345678).",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_015",
+    "date": "2025-07-27",
+    "customerQuestion": "What should be done if logout is missing in API logs?",
+    "supportAnswer": "Ensure the logout API is always called after sessions to free up resources and improve performance.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_016",
+    "date": "2025-07-27",
+    "customerQuestion": "What address details must be included in AddPassenger & Contact API?",
+    "supportAnswer": "Use actual passenger or agency contact info. Include full address fields, even if API only mandates city and line1.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_017",
+    "date": "2025-07-27",
+    "customerQuestion": "What is the booking flow sequence?",
+    "supportAnswer": "1. Get Token\n2. Get Availability\n3. Booking Quote\n4. Trip Sell\n5. Get Passengers\n6. Add Passenger and Contact\n7. Seat Availability (optional)\n8. Seat Assignment (optional)\n9. Get Available SSRs (optional)\n10. Add SSRs\n11. Add Travel Documents\n12. Check Balance\n13. Get Booking Details\n14. Add Payment\n15. Commit Booking\n16. Get Booking Status\n17. Logout",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_018",
+    "date": "2025-07-27",
+    "customerQuestion": "What is the URL to get booking balance due?",
+    "supportAnswer": "Use GET /api/jz/v1/BookingDetails?BookingDetailsType=BalanceDue to get balance before payment.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_019",
+    "date": "2025-07-27",
+    "customerQuestion": "What is the correct API call format for applying promo codes?",
+    "supportAnswer": "Pass 'promotionCode' in Availability, BookingQuote, and TripSell requests. The promo discount appears as type 7 under serviceCharges.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_020",
+    "date": "2025-07-27",
+    "customerQuestion": "Where to retrieve balance for an organization account?",
+    "supportAnswer": "Use the OrganizationsAccount API to retrieve balance details for agency accounts.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_021",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: IP whitelisting \u2013 check server name and add ip addresses to ...?",
+    "supportAnswer": "IP whitelisting \u2013 check server name and add ip addresses to the server test (mode 1)/prod (mode 2)",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_022",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: Test certification validations \u2013 check the excel validate th...?",
+    "supportAnswer": "Test certification validations \u2013 check the excel validate the cases. In case of extra baggage, seat and SSRs ask them to validate the extra baggage scenario.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_023",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: Thanks for sharing the test cases and confirming the validat...?",
+    "supportAnswer": "Thanks for sharing the test cases and confirming the validations.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_024",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: Looping Anitha from Finance Department for live certificatio...?",
+    "supportAnswer": "Looping Anitha from Finance Department for live certification process.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_025",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: Please follow the below process for LIVE credentials....?",
+    "supportAnswer": "Please follow the below process for LIVE credentials.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_026",
+    "date": "2025-07-27",
+    "customerQuestion": "1.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 register the agency with jazeera airways portal on the following url?",
+    "supportAnswer": "and share registration confirmation.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_027",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: 2.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 ID Creation (Production Environment) \u2013 Once Finance...?",
+    "supportAnswer": "2.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 ID Creation (Production Environment) \u2013 Once Finance Department approve the request, travel agency will receive the login credential and the account details on their registered email address.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_028",
+    "date": "2025-07-27",
+    "customerQuestion": "3.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 test booking on production?",
+    "supportAnswer": "Make sure passenger name should be \u201cTest Tester\u201d and share the PNR for verification (test booking amount will be credited back to the AG account). Once IT confirmed, agency can start booking on Production.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_029",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: 4.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 Make sure to use the default currencies (currency r...?",
+    "supportAnswer": "4.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 Make sure to use the default currencies (currency retrieved from availability response) for the bookings. More about currencies is discussed in the API integration FAQ document.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_030",
+    "date": "2025-07-27",
+    "customerQuestion": "5.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 production api url?",
+    "supportAnswer": "https://j9OTAapi.jazeeraairways.com/ .",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_031",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: 6.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 Make sure to display the baggage allowance dynamica...?",
+    "supportAnswer": "6.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 Make sure to display the baggage allowance dynamically, as it varies with different product classes & routes/sectors. Please refer the  website to get more details on EL, EV, EE fare features.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_032",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: 7.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 All the active stations, default currency and the r...?",
+    "supportAnswer": "7.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 All the active stations, default currency and the routes/city pair can be retrieved from the endpoint -\u00a0\u201cGET /api/jz/v1/AvailableStations\u201d. For your flight searches, we recommend you store this data locally and get updated once a day.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_033",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: 8.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 Share the LIVE API ID and the production server IP ...?",
+    "supportAnswer": "8.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 Share the LIVE API ID and the production server IP to whitelist it and get LIVE API access.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_034",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: Kindly please let us know if the below validation have been ...?",
+    "supportAnswer": "Kindly please let us know if the below validation have been handled on your front end .Please make sure the below mentioned validations are done on your front end application before hitting the API request.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_035",
+    "date": "2025-07-27",
+    "customerQuestion": "Time gap<90min?",
+    "supportAnswer": "Check whether the system allows to book flight where the time gap between OB and IB flights are less than 90 Min.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_036",
+    "date": "2025-07-27",
+    "customerQuestion": "Group booking?",
+    "supportAnswer": "Check whether the system allows to do booking for 10 PAX",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_037",
+    "date": "2025-07-27",
+    "customerQuestion": "No of infts>no of adlts?",
+    "supportAnswer": "Try to book more number of Infants than Adults",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_038",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: Infant DOB <14 at the time of travel...?",
+    "supportAnswer": "Infant DOB <14 at the time of travel",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_039",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: Please confirm if extra baggage , seat, meal (SSRS) are not ...?",
+    "supportAnswer": "Please confirm if extra baggage , seat, meal (SSRS) are not being used by your system. In case if it is being used please complete the test cases related to it and share the logs along with the PNR\u2019s.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_040",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: Kindly please pass the correct format for phone number ( +co...?",
+    "supportAnswer": "Kindly please pass the correct format for phone number ( +countrycode-phone no) instead of (IN-phone number)",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_041",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: Make sure to use the default currencies (currency retrieved ...?",
+    "supportAnswer": "Make sure to use the default currencies (currency retrieved from availability response) for the bookings. Kindly make sure that you will always receive the fares in availability response in origin station\u2019s default currency regardless of which currency you pass in the request. All the remaining API call requests (BookingQuote, TripSell, SellSSR, etc) should use the currency specified in the availability API response. More about currencies is discussed in the API integration FAQ document(OTA Navitaire DotRez API integration FAQ v1.9) (PFA) Question No 2.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_042",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: It is very important to call logout API to free the session ...?",
+    "supportAnswer": "It is very important to call logout API to free the session created and the corresponding resources to enhance response time. Attached logs have no logout request and responses.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_043",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: PFA an updated integration documentation. Refer to section 2...?",
+    "supportAnswer": "PFA an updated integration documentation. Refer to section 2 about session management best practices and confirm reflecting in the integration code.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_044",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: Also please note that you can include your company name in A...?",
+    "supportAnswer": "Also please note that you can include your company name in AddPassenger&Contact Request API as in below screen shot.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_045",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: Avoid hardcoding values like \"Test\" in the contact informati...?",
+    "supportAnswer": "Avoid hardcoding values like \"Test\" in the contact information. Use actual PAX contact. If it is not available use your actual organization contact info instead. Please include the whole address as per the shared postman collection. Add passenger API has only city and line1 as parameters. Please include all the fields in the request for contact address.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_046",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: The \u201cEconomy Bundle Fares\u201d test case you can choose to go li...?",
+    "supportAnswer": "The \u201cEconomy Bundle Fares\u201d test case you can choose to go live only with same fare. However, for certification purpose, please create PNRs for the other bundles using just the API so that our team can certify that your understanding of the booking flow is validated.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_047",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: Kindly note that this feature is very important to be develo...?",
+    "supportAnswer": "Kindly note that this feature is very important to be developed before going live as it gives much flexibility when booking a RT flight.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_048",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: Enforcing roundtrips to be in the same fare class limits boo...?",
+    "supportAnswer": "Enforcing roundtrips to be in the same fare class limits booking options as some classes may be unavailable (ex. sold out).",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_049",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: However, in order to proceed with certification, do one book...?",
+    "supportAnswer": "However, in order to proceed with certification, do one booking that satisfy this test case please create PNR for example inbound using EL(Economy Light) and outbound using EE(Economy Extra) \u00a0directly using the APIs and share the corresponding logs and PNR.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_050",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: Please make one more connecting return flight booking and ad...?",
+    "supportAnswer": "Please make one more connecting return flight booking and add extra baggage SSR (XB10), meals, seat and infant to it. In case of connecting flights the extra baggage must be added to both segments of the flight so that the passenger can proceed with his full baggage. This SSR need to be verified available on both segments (listed under journey SSRs in get AvailableSSRs API response) before showing it to passengers as an option to add. Kindly share the full logs of this test case.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_051",
+    "date": "2025-07-27",
+    "customerQuestion": "Note?",
+    "supportAnswer": "Kindly please note that the SSRs other than extra baggage should be added in correct way as per the document shared. Please confirm if this is being handled.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_052",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: In case of return and connecting sector assigning a seat sho...?",
+    "supportAnswer": "In case of return and connecting sector assigning a seat should happen for each segment of the flight instead of journey key. Please confirm if this is being handled.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_053",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: Kindly please make sure you complete the flow off the bookin...?",
+    "supportAnswer": "Kindly please make sure you complete the flow off the booking in all the scenarios.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_054",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: Booking Quote (Price Itinerary)...?",
+    "supportAnswer": "Booking Quote (Price Itinerary)",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_055",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: Add Passenger and Contact Info (Passengers API)...?",
+    "supportAnswer": "Add Passenger and Contact Info (Passengers API)",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_056",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: Seats Availability by segment (optional)...?",
+    "supportAnswer": "Seats Availability by segment (optional)",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_057",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: Seat Assignment (Optional)...?",
+    "supportAnswer": "Seat Assignment (Optional)",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_058",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: Get Available SSRs (Optional)...?",
+    "supportAnswer": "Get Available SSRs (Optional)",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_059",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: Add SSRs (SellSSR) (Optional)...?",
+    "supportAnswer": "Add SSRs (SellSSR) (Optional)",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_060",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: Add passenger travel Documents (Optional)...?",
+    "supportAnswer": "Add passenger travel Documents (Optional)",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_061",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: Check Agency account balance...?",
+    "supportAnswer": "Check Agency account balance",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_062",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: Get Booking Details -Balancedue...?",
+    "supportAnswer": "Get Booking Details -Balancedue",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_063",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: Add payment to booking...?",
+    "supportAnswer": "Add payment to booking",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_064",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: Get Booking Status...?",
+    "supportAnswer": "Get Booking Status",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_065",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: You can also make use of bookingdetails API to get the balan...?",
+    "supportAnswer": "You can also make use of bookingdetails API to get the balance due before adding the payment to make sure the balance is matching with the sell before adding the payment.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_066",
+    "date": "2025-07-27",
+    "customerQuestion": "Url for booking details?",
+    "supportAnswer": "GET \u00a0/api/jz/v1/BookingDetails?BookingDetailsType=BalanceDue",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_067",
+    "date": "2025-07-27",
+    "customerQuestion": "Test pnr reversal email for test booking in production?",
+    "supportAnswer": "(AG account)",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_068",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: Could you please revert the booking (EE85XE) and confirm....?",
+    "supportAnswer": "Could you please revert the booking (EE85XE) and confirm.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_069",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: The below booking shared is correct....?",
+    "supportAnswer": "The below booking shared is correct.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_070",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: Test PNR reversal email for test booking in production (BSP ...?",
+    "supportAnswer": "Test PNR reversal email for test booking in production (BSP Payment)",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_071",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: Could you please cancel the below booking (Q4ZUYI, O2L2RL) a...?",
+    "supportAnswer": "Could you please cancel the below booking (Q4ZUYI, O2L2RL) and reverse the Payment.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_072",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: Please initiate the refund process....?",
+    "supportAnswer": "Please initiate the refund process.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_073",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: Thanks for the confirmation....?",
+    "supportAnswer": "Thanks for the confirmation.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_074",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: The payment was captured correctly. Kindly please proceed wi...?",
+    "supportAnswer": "The payment was captured correctly. Kindly please proceed with BSP payments on production.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_075",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: Kindly please note that you will always receive the fares in...?",
+    "supportAnswer": "Kindly please note that you will always receive the fares in availability response in origin station\u2019s default currency regardless of which currency you pass in the request. All the remaining API call requests (BookingQuote, TripSell, SellSSR, etc) should use the currency specified in the availability API response.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_076",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: If you want to display fares for customer in any other curre...?",
+    "supportAnswer": "If you want to display fares for customer in any other currency, use currency conversion API (GET /v1/CurrencyConverter). The below usage of currency convertor is incorrect. Please use it to only display fares to passengers.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_077",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: Please note that you can use the below link for currency con...?",
+    "supportAnswer": "Please note that you can use the below link for currency convertor.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_078",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: Shared the screen shot for the same....?",
+    "supportAnswer": "Shared the screen shot for the same.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_079",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: Please note that BaggageAllowanceWeightType 2 is for kilogra...?",
+    "supportAnswer": "Please note that BaggageAllowanceWeightType 2 is for kilogram. It always 2 in case of \u201cEE\u201d,\u201dEV\u201d & \u201cBU\u201d and 0 (default) in case of \u201cEL\u201d.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_080",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: Thanks for the below shared logs....?",
+    "supportAnswer": "Thanks for the below shared logs.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_081",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: Kindly please note that for the certification process, pleas...?",
+    "supportAnswer": "Kindly please note that for the certification process, please find attached the test cases needs to be executed from your side and get back to us with respective PNR & logs for each case in the excel.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_082",
+    "date": "2025-07-27",
+    "customerQuestion": "Locked credentials?",
+    "supportAnswer": "send email to Laila with API id to unlock",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_083",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: For testing promotion Code flow \u201cJ9TEST\u201d is used as \u201cpromoti...?",
+    "supportAnswer": "For testing promotion Code flow \u201cJ9TEST\u201d is used as \u201cpromotionCode\u201d.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_084",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: Please find the attached document question no 16 for promo c...?",
+    "supportAnswer": "Please find the attached document question no 16 for promo code API calls.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_085",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: Also please find the details below....?",
+    "supportAnswer": "Also please find the details below.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_086",
+    "date": "2025-07-27",
+    "customerQuestion": "\"codes\"?",
+    "supportAnswer": "{ \"currencyCode\": \"{{CurrencyCode}}\",",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_087",
+    "date": "2025-07-27",
+    "customerQuestion": "\"promotioncode\"?",
+    "supportAnswer": "\"J9PROMO\" // replace with proper promo code",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_088",
+    "date": "2025-07-27",
+    "customerQuestion": "Kindly please note that promo code will always be added as type?",
+    "supportAnswer": "7 under service charges in passenger fares on booking Quote response.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_089",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: Base fare + service charges(excluding Promo Discount of Type...?",
+    "supportAnswer": "Base fare + service charges(excluding Promo Discount of Type 7) - Promo Discount of Type 7 charges = balance due",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_090",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: Kindly please pass \u201cTaxesAndFees\u201d for parameter taxesAndFees...?",
+    "supportAnswer": "Kindly please pass \u201cTaxesAndFees\u201d for parameter taxesAndFees instead of null in availability request. Below screen shot for your reference.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_091",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: Kindly please note that balance has already been added to th...?",
+    "supportAnswer": "Kindly please note that balance has already been added to the account.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_092",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: You can get the details of balance for your account from Org...?",
+    "supportAnswer": "You can get the details of balance for your account from OrganizationsAccount API as per the below screen shot.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_093",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: Kindly please note that you can use the below end point to r...?",
+    "supportAnswer": "Kindly please note that you can use the below end point to retrieve the booking details using PNR.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_094",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: If in Availability, we get connecting journeys in recommenda...?",
+    "supportAnswer": "If in Availability, we get connecting journeys in recommendations with same fareSellKey, We always have to hit getQuote separately for them?",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_095",
+    "date": "2025-07-27",
+    "customerQuestion": "<api support>?",
+    "supportAnswer": "Yes please get the booking quote for each journey key separately in case of connecting flights.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_096",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: if the direct flights share same fareSellkey, we can combine...?",
+    "supportAnswer": "if the direct flights share same fareSellkey, we can combine their getQuote requests?",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_097",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: What if two recommendations come, one direct and one connect...?",
+    "supportAnswer": "What if two recommendations come, one direct and one connecting with same fareSellKey, then what shall be done?",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_098",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: If two journeys have same fareSellKey in availability respon...?",
+    "supportAnswer": "If two journeys have same fareSellKey in availability response and if we do only one getQuote Call for that with only one journey. Can we assume, the total fare and all the fare components associated with that response be same and valid for both the journeys. If yes, is it same for the baggage allowance too?",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_099",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: When tried adding one SSR at a time in add SSR request, stil...?",
+    "supportAnswer": "When tried adding one SSR at a time in add SSR request, still the response comes in as a string. We expect it to be in a structured Json format. Please check the highlighted part. PFA LOGS",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_100",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: Below is the response of Booking details API = Complete...?",
+    "supportAnswer": "Below is the response of Booking details API = Complete",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_101",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: Add Infant Documents request gives success response as a jso...?",
+    "supportAnswer": "Add Infant Documents request gives success response as a json object and Error response as a list of objects.\u00a0 PFA attached xmls. Why difference in response structure for success and response all together? Please confirm.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_102",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: 1. As you have mentioned that Cabin Baggage can be Hard code...?",
+    "supportAnswer": "1. As you have mentioned that Cabin Baggage can be Hard coded, for economy light its 0, economy value its 1 , economy extra its 2 and for Business class its 3 pieces. What baggage division is allowed to passenger?",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_103",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: Let\u2019s say Economy EXTRA fare family gives 30 KG baggage and ...?",
+    "supportAnswer": "Let\u2019s say Economy EXTRA fare family gives 30 KG baggage and 2 pieces. Now, Can passenger divide 30 Kg allowance in any way possible? Can he take 30 KG baggage in 1 piece or 20 kg - 10 kg two pieces? Or the baggage has to be strictly divided into 15kgs each? Please confirm on this handling.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_104",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: 2. We have been trying to do\u00a0addPassengerDocument\u00a0API call b...?",
+    "supportAnswer": "2. We have been trying to do\u00a0addPassengerDocument\u00a0API call but it takes one field \"issuedDate\" mandatorily, without which error occurs. Please confirm if that is mandatory? if not, what should be its handling?",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_105",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: 3. When we add multiple SSRs in one SellSSr Call, We get a r...?",
+    "supportAnswer": "3. When we add multiple SSRs in one SellSSr Call, We get a response is a list of string format, but we expect it to be in some structured format. Below is the example when we tried to add two ssrs in one call, One of them was success and one is failed. As the response is not structured rather in string format, how do we know if the ssr is attached. Please check this at your end and revert.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_106",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: 4. According to the request shared by you for adding Documen...?",
+    "supportAnswer": "4. According to the request shared by you for adding Documents for infants. It indicates that only one Infant\u2019s Document could be added in one request. Please explain if we can add documents for multiple infants in one request.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_107",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: For round trip search, what are the different product classe...?",
+    "supportAnswer": "For round trip search, what are the different product classes can be combined?",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_108",
+    "date": "2025-07-27",
+    "customerQuestion": "<api support?",
+    "supportAnswer": "> Product classes are same irrespective of OW or RT. Economy extra, Economy Light, Economy Value, Business (From /To CAI)",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_109",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: From where shall the cabin baggage for a journey be taken?...?",
+    "supportAnswer": "From where shall the cabin baggage for a journey be taken?",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_110",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: Where do we get the piece information for check-in baggage i...?",
+    "supportAnswer": "Where do we get the piece information for check-in baggage in getBookingQuote API?",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_111",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: I am hereby attaching logs which have addPassengersAndContac...?",
+    "supportAnswer": "I am hereby attaching logs which have addPassengersAndContact, addPassengerDocument and addInfantDocument Request and Response with the URLs. Please go through the logs. I am getting some sort of error while I am adding Infant documents. Kindly Suggest what is wrong here.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_112",
+    "date": "2025-07-27",
+    "customerQuestion": "Seatavailability?",
+    "supportAnswer": "We get Seats response on only one segment of a journey in one call. If a journey has two segments. We need to separately call seatAvailability for each segment. So in case of connecting OW we need to do 2 calls and in case of connecting RT , we need 4 calls?",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_113",
+    "date": "2025-07-27",
+    "customerQuestion": "Question?",
+    "supportAnswer": "Can we somehow do the seatAvailability for connecting journey in one single seatAvailability call? If yes, can we do the seatAvailability call for an RT journey in one single call be it OW or direct?",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_114",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: Do we have to add XB10 baggage code for extra baggage of 10 ...?",
+    "supportAnswer": "Do we have to add XB10 baggage code for extra baggage of 10 KGs everytime in case of connecting flights or only in those cases when user selects it?",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_115",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: addPassengerDocument mandatorily take passport issued date. ...?",
+    "supportAnswer": "addPassengerDocument mandatorily take passport issued date. What shall i pass there?",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_116",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: tripSell response doesn't have segment key in response for c...?",
+    "supportAnswer": "tripSell response doesn't have segment key in response for connecting flights. Seat availability take segment key as a param in request. what should be done? (attachment 1)",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_117",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: Whether to do multiple sell SSR calls combined in one or sep...?",
+    "supportAnswer": "Whether to do multiple sell SSR calls combined in one or separately while adding SSRs.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_118",
+    "date": "2025-07-27",
+    "customerQuestion": "//case 0?",
+    "supportAnswer": "//Business",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_119",
+    "date": "2025-07-27",
+    "customerQuestion": "//case 1?",
+    "supportAnswer": "//premium",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_120",
+    "date": "2025-07-27",
+    "customerQuestion": "//case 2?",
+    "supportAnswer": "//prefered",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_121",
+    "date": "2025-07-27",
+    "customerQuestion": "//case 5?",
+    "supportAnswer": "//std2",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_122",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: What is $1, $2 etc in designator node in seat response mean ...?",
+    "supportAnswer": "What is $1, $2 etc in designator node in seat response mean ?",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_123",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: I am not asking about the availability node but designator n...?",
+    "supportAnswer": "I am not asking about the availability node but designator node. We need to display the SeatMap to user which is made using designator node of each seat. Hence please confirm what does $ in designator node mean.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_124",
+    "date": "2025-07-27",
+    "customerQuestion": "A) acquire a token (login) \u00a0<api support>?",
+    "supportAnswer": "This is being done correctly",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_125",
+    "date": "2025-07-27",
+    "customerQuestion": "B) check flight availability \u00a0<api support>?",
+    "supportAnswer": "This is being done correctly",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_126",
+    "date": "2025-07-27",
+    "customerQuestion": "C) sell a trip <api support>?",
+    "supportAnswer": "This is being done correctly",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_127",
+    "date": "2025-07-27",
+    "customerQuestion": "D) add passenger and contact information \u00a0<api support>?",
+    "supportAnswer": "This is being done correctly",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_128",
+    "date": "2025-07-27",
+    "customerQuestion": "E) get available hold date <api support>?",
+    "supportAnswer": "This is being done correctly",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_129",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: f) Add Hold Fees (For all passengers)...?",
+    "supportAnswer": "f) Add Hold Fees (For all passengers)",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_130",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: This is incorrect...?",
+    "supportAnswer": "This is incorrect",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_131",
+    "date": "2025-07-27",
+    "customerQuestion": "G) add payment (hold fee) to the booking (with deposit flag as true) \u00a0<api support>?",
+    "supportAnswer": "Instead of passing the full balance due kindly please pass the hold fee sum here in amount field. Kindly refer to section \u00a05.9.4 Hold Booking Flow (For AG Payment) point no 9 for further clarification.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_132",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: h) Commit booking (to obtain PNR or record Locator) by passi...?",
+    "supportAnswer": "h) Commit booking (to obtain PNR or record Locator) by passing the above hold expiration date.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_133",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: i) Get booking status (to check the booking status whether i...?",
+    "supportAnswer": "i) Get booking status (to check the booking status whether it is confirmed/hold/failed)",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_134",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: The following APIs are required to complete the Hold booking...?",
+    "supportAnswer": "The following APIs are required to complete the Hold booking within the hold period time.",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_135",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: a) Acquire a token (login)...?",
+    "supportAnswer": "a) Acquire a token (login)",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_136",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: b) Retrieve the booking using PNR/Record locator...?",
+    "supportAnswer": "b) Retrieve the booking using PNR/Record locator",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_137",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: c) Check the balance due on the booking...?",
+    "supportAnswer": "c) Check the balance due on the booking",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_138",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: d) Add Payment to booking...?",
+    "supportAnswer": "d) Add Payment to booking",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_139",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: e) Commit booking...?",
+    "supportAnswer": "e) Commit booking",
+    "category": "general",
+    "tags": []
+  },
+  {
+    "id": "email_json_140",
+    "date": "2025-07-27",
+    "customerQuestion": "What does the document state about: f) Get booking status (to check the booking status whether i...?",
+    "supportAnswer": "f) Get booking status (to check the booking status whether it is confirmed/hold/failed)",
+    "category": "general",
+    "tags": []
+  }
+]

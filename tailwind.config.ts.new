@@ -1,0 +1,47 @@
+import type { Config } from 'tailwindcss';
+import typography from '@tailwindcss/typography';
+
+const config: Config = {
+  content: [
+    './pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+  ],
+  theme: {
+    extend: {
+      colors: {
+        jazeera: {
+          blue: '#0065A3',
+        },
+      },
+      typography: {
+        DEFAULT: {
+          css: {
+            maxWidth: 'none',
+            h1: {
+              marginTop: '2rem',
+              scrollMarginTop: '6rem',
+            },
+            h2: {
+              marginTop: '2rem',
+              scrollMarginTop: '6rem',
+            },
+            h3: {
+              marginTop: '2rem',
+              scrollMarginTop: '6rem',
+            },
+            h4: {
+              marginTop: '2rem',
+              scrollMarginTop: '6rem',
+            },
+          },
+        },
+      },
+    },
+  },
+  plugins: [
+    typography,
+  ],
+} as const;
+
+export default config;

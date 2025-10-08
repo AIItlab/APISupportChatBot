@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API Documentation</title>
+</head>
+<body>
+    <article class="documentation">
+        <!-- Technical Documentation Section -->
+        <section class="doc-section">
+            <h1>Technical Documentation</h1>
+            <h2>OTA Navitaire DotRez API Integration</h2>
+            <div class="version-info">Version 2.1 – June 2023</div>
+            <p>This document provides comprehensive guidance for integrating with Jazeera Airways' Navitaire DotRez API system.</p>
+        </section>
+
+        <!-- System Requirements Section -->
+        <section class="doc-section">
+            <h2>System Requirements</h2>
+            <h3>Technical Requirements</h3>
+            <ul>
+                <li>SSL Certificate for secure communication</li>
+                <li>IP Whitelisting for API access</li>
+                <li>Valid API credentials</li>
+                <li>Understanding of RESTful API principles</li>
+            </ul>
+            <h3>Development Environment</h3>
+            <ul>
+                <li>Any modern IDE or text editor</li>
+                <li>Postman or similar API testing tool</li>
+                <li>Git for version control</li>
+            </ul>
+        </section>
+
+        <!-- API Endpoints Section -->
+        <section class="doc-section">
+            <h2>API Endpoints</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Environment</th>
+                        <th>URL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Production</td>
+                        <td>https://ws.jazeeraairways.com/v1/api/</td>
+                    </tr>
+                    <tr>
+                        <td>Test</td>
+                        <td>https://wsuat.jazeeraairways.com/v1/api/</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Authentication Section -->
+        <section class="doc-section">
+            <h2>Authentication</h2>
+            <p>All API requests require authentication using the following headers:</p>
+            <ul>
+                <li>API Key: <code>X-Api-Key: [your-api-key]</code></li>
+                <li>Basic Auth: <code>Authorization: Basic [base64-encoded-credentials]</code></li>
+            </ul>
+            <div class="security-note">
+                <h4>Security Requirements</h4>
+                <ul>
+                    <li>All API requests must use HTTPS</li>
+                    <li>API keys must be kept secure</li>
+                    <li>Implement proper error handling</li>
+                    <li>Follow security best practices</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Integration Process Section -->
+        <section class="doc-section">
+            <h2>Integration Process</h2>
+            <div class="process-steps">
+                <ol>
+                    <li>Request API credentials from Jazeera Airways</li>
+                    <li>Configure development environment</li>
+                    <li>Test connectivity with API endpoints</li>
+                    <li>Implement required API flows</li>
+                    <li>Perform thorough testing</li>
+                    <li>Deploy to production</li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- Common Flows Section -->
+        <section class="doc-section">
+            <h2>Common API Flows</h2>
+            <div class="flow-grid">
+                <div class="flow-item">
+                    <h4>Booking Flow</h4>
+                    <ol>
+                        <li>Search for flights</li>
+                        <li>Get fare details</li>
+                        <li>Create booking</li>
+                        <li>Add passengers</li>
+                        <li>Make payment</li>
+                        <li>Confirm booking</li>
+                    </ol>
+                </div>
+                <div class="flow-item">
+                    <h4>Ancillary Services</h4>
+                    <ul>
+                        <li>Seat selection</li>
+                        <li>Meal preferences</li>
+                        <li>Extra baggage</li>
+                        <li>Special assistance</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </article>
+</body>
+</html>
