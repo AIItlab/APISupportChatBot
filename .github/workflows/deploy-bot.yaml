@@ -1,0 +1,83 @@
+name: Deploy to Windows Server
+
+on:
+  push:
+    branches:
+      - main   # deploy only when main branch is pushed
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # Install and build client
+      - name: Install Client Dependencies
+        working-directory: ./client
+        run: npm ci
+
+      - name: Build React App
+        working-directory: ./client
+        run: npm run build
+
+      # Install server dependencies
+      - name: Install Server Dependencies
+        working-directory: ./server
+        run: npm ci
+
+      # Copy React build to server folder
+      - name: Copy React Build to Server Public Folder
+        run: |
+          mkdir -p ./server/public
+          cp -r ./client/build/* ./server/public/
+
+      # Zip everything to upload
+      - name: Archive production files
+        run: |
+          zip -r app.zip ./server
+
+      # Deploy to Windows Server
+      - name: Deploy to Windows Server via WinRM
+        uses: P3TERX/ssh2actions@v1
+        with:
+          host: ${{ secrets.WINDOWS_HOST }}
+          username: ${{ secrets.WINDOWS_USER }}
+          password: ${{ secrets.WINDOWS_PASSWORD }}
+          port: 5985
+          command: |
+            powershell -Command "
+            cd C:\apps;
+            if (Test-Path .\app.zip) { Remove-Item .\app.zip -Force };
+            "
+
+      - name: Upload app.zip to Windows Server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.WINDOWS_HOST }}
+          username: ${{ secrets.WINDOWS_USER }}
+          password: ${{ secrets.WINDOWS_PASSWORD }}
+          source: "app.zip"
+          target: "C:\\apps\\"
+
+      - name: Extract and Restart App
+        uses: P3TERX/ssh2actions@v1
+        with:
+          host: ${{ secrets.WINDOWS_HOST }}
+          username: ${{ secrets.WINDOWS_USER }}
+          password: ${{ secrets.WINDOWS_PASSWORD }}
+          port: 5985
+          command: |
+            powershell -Command "
+              cd C:\apps;
+              Expand-Archive -Force app.zip -DestinationPath C:\apps\app;
+              cd C:\apps\app\server;
+              npm install --production;
+              pm2 restart all;
+            "
