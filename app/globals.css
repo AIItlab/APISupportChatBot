@@ -1,0 +1,243 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@layer base {
+  :root {
+    --foreground-rgb: 0, 0, 0;
+    --background-rgb: 255, 255, 255;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    color: rgb(var(--foreground-rgb));
+    background: rgb(var(--background-rgb));
+  }
+}
+
+.prose-custom {
+  max-width: none;
+}
+
+.REDACTED {
+  position: relative;
+  max-width: 56rem;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+}
+
+.REDACTED img {
+  width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.REDACTED {
+  animation: bounce-subtle 3s infinite;
+}
+
+.scroll-mt-24 {
+  scroll-margin-top: 6rem;
+}
+
+/* Base styles */
+@layer base {
+  :root {
+    --foreground-rgb: 0, 0, 0;
+    --background-rgb: 255, 255, 255;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    color: rgb(var(--foreground-rgb));
+    background: rgb(var(--background-rgb));
+  }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::REDACTED {
+  background: #f1f1f1;
+}
+
+::REDACTED {
+  background: #ddd;
+  border-radius: 4px;
+}
+
+::REDACTED:hover {
+  background: #bbb;
+}
+
+/* Typography tweaks */
+.prose h1, 
+.prose h2, 
+.prose h3, 
+.prose h4 {
+  margin-top: 2rem;
+  scroll-margin-top: 6rem;
+}
+
+.prose h1 {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.prose h2 {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.prose h3 {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.prose h4 {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.prose p {
+  color: #4b5563;
+}
+
+/* Anchor link styling */
+.anchor-link {
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+:is(h1, h2, h3, h4, h5, h6):hover .anchor-link {
+  opacity: 1;
+}
+
+/* Documentation Styles */
+.REDACTED {
+  max-width: 56rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.REDACTED {
+  position: relative;
+}
+
+.REDACTED img {
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.REDACTED .prose {
+  color: #1f2937;
+  line-height: 1.75;
+}
+
+.REDACTED .prose h1 {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #111827;
+}
+
+.REDACTED .prose h2 {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #1f2937;
+}
+
+.REDACTED .prose h3 {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  color: #1f2937;
+}
+
+.REDACTED .prose p {
+  margin-bottom: 1rem;
+}
+
+.REDACTED .prose ul,
+.REDACTED .prose ol {
+  margin-bottom: 1rem;
+  padding-left: 1.25rem;
+}
+
+.REDACTED .prose li {
+  margin-bottom: 0.5rem;
+}
+
+.REDACTED .prose pre {
+  background-color: #f9fafb;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin: 1rem 0;
+  overflow-x: auto;
+}
+
+.REDACTED .prose code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.875rem;
+  background-color: #f3f4f6;
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
+}
+
+/* Ensure proper spacing between sections */
+.REDACTED + .REDACTED {
+  margin-top: 2rem;
+}
+
+/* Responsive image containers */
+.REDACTED .image-container {
+  position: relative;
+  margin: 1.5rem 0;
+}
+
+/* Ensure images don't overflow their containers */
+.REDACTED .image-container img {
+  width: 100%;
+  height: auto;
+}
+
+/* Add spacing between image and text */
+.REDACTED .image-container + .prose {
+  margin-top: 1.5rem;
+}
+
+.REDACTED .prose + .image-container {
+  margin-top: 1.5rem;
+}
+

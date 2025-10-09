@@ -1,0 +1,232 @@
+/**
+ * This module handles vector-based search functionality for FAQs using Pinecone and OpenAI.
+ * It provides capabilities to create embeddings for FAQs and perform semantic searches.
+ *
+ * Key components:
+ * - OpenAI: Used for generating text embeddings
+ * - Pinecone: Vector database for storing and searching embeddings
+ */
+
+import { Pinecone, RecordMetadata } from '@pinecone-database/pinecone';
+import { OpenAI } from 'openai';
+import { FAQ } from './faq';
+import { getCombinedKnowledgeBase, DocumentationSection } from './contentExtractor';
+
+// In Next.js, environment variables are automatically loaded,
+// but for scripts we need to ensure they're available
+if (process.env.NODE_ENV !== 'production' && !process.env.OPENAI_API_KEY) {
+  // Try to load from .env.local for development and scripts
+  require('dotenv').config({ path: '.env.local' });
+}
+
+// Validate environment variables
+if (!process.env.OPENAI_API_KEY) {
+  throw new Error('Missing OPENAI_API_KEY');
+}
+if (!process.env.PINECONE_API_KEY || !process.env.PINECONE_ENVIRONMENT || !process.env.PINECONE_INDEX) {
+  throw new Error('Missing Pinecone configuration');
+}
+
+// Initialize OpenAI client
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
+
+// Initialize Pinecone with retries
+const initPinecone = async (retries = 3, delay = 2000): Promise<Pinecone> => {
+  for (let i = 0; i < retries; i++) {
+    try {
+      console.log('Initializing Pinecone connection...');
+      const pinecone = new Pinecone({
+        apiKey: process.env.PINECONE_API_KEY!,
+        environment: process.env.PINECONE_ENVIRONMENT!,
+      });
+
+      // Test the connection with timeout
+      const timeoutPromise = new Promise((_, reject) => {
+        setTimeout(() => reject(new Error('Connection timeout')), 10000);
+      });
+      const connectionPromise = pinecone.listIndexes();
+      
+      const indexes = await Promise.race([connectionPromise, timeoutPromise]);
+      console.log('Successfully connected to Pinecone. Available indexes:', indexes);
+      
+      return pinecone;
+    } catch (error) {
+      console.error(`Attempt ${i + 1}/${retries} failed:`, error);
+      if (i === retries - 1) throw error;
+      await new Promise(resolve => setTimeout(resolve, delay));
+    }
+  }
+  throw new Error('Failed to initialize Pinecone after multiple attempts');
+};
+
+let pinecone: Pinecone | null = null;
+
+// Function to get or initialize Pinecone
+export const getPinecone = async () => {
+  if (!pinecone) {
+    pinecone = await initPinecone();
+  }
+  return pinecone;
+};
+
+// Use Pinecone's RecordMetadata type for type safety
+type MetadataValues = string | number | boolean | string[] | number[] | boolean[] | undefined;
+
+interface BaseMetadata {
+  id: string;
+  type: string;
+  [key: string]: MetadataValues;
+}
+
+interface FAQMetadata extends Omit<BaseMetadata, 'type'> {
+  question: string;
+  answer: string;
+  type: 'faq';
+}
+
+interface DocMetadata extends Omit<BaseMetadata, 'type'> {
+  title: string;
+  content: string;
+  type: 'doc';
+  imageData?: string; // JSON stringified image data
+}
+
+type ContentMetadata = FAQMetadata | DocMetadata;
+
+/**
+ * Interface for search results returned from vector similarity search
+ */
+export interface VectorSearchResult {
+  id: string;
+  score: number;
+  content: {
+    id: string;
+    question?: string;
+    answer?: string;
+    title?: string;
+    content?: string;
+    images?: Array<{
+      src: string;
+      alt?: string;
+      caption?: string;
+    }>;
+  };
+}
+
+/**
+ * Helper function to prepare text for embedding by including image information
+ */
+function prepareTextForEmbedding(content: FAQ | DocumentationSection): string {
+  if ('images' in content && content.images) {
+    // For documentation sections with images, include image information
+    const imageDescriptions = content.images.map(img => 
+      `[Image${img.alt ? ': ' + img.alt : ''}${img.caption ? ' - ' + img.caption : ''}]`
+    ).join(' ');
+    return `${content.title} ${content.content} ${imageDescriptions}`;
+  } else if ('question' in content) {
+    // For FAQs, use question and answer
+    return `${content.question} ${content.answer}`;
+  } else {
+    // For documentation sections without images
+    return `${content.title} ${content.content}`;
+  }
+}
+
+/**
+ * Creates embeddings for all content and stores them in Pinecone
+ */
+export async function embedContent() {
+  try {
+    // Get combined knowledge base from FAQs and documentation
+    console.log('Getting combined knowledge base...');
+    const knowledgeBase = await getCombinedKnowledgeBase();
+    console.log(`Processing ${knowledgeBase.length} items...`);
+    
+    // Create embeddings for all content
+    const vectors = await Promise.all(
+      knowledgeBase.map(async (item: FAQ | DocumentationSection) => {
+        const text = prepareTextForEmbedding(item);
+        const response = await openai.embeddings.create({
+          model: 'text-embedding-ada-002',
+          input: text,
+        });
+
+        // Convert content to proper metadata format
+        const metadata: RecordMetadata = 'question' in item 
+          ? {
+              id: item.id,
+              type: 'faq',
+              question: item.question,
+              answer: item.answer,
+            }
+          : {
+              id: item.id,
+              type: 'doc',
+              title: item.title,
+              content: item.content,
+              ...(item.images && { imageData: JSON.stringify(item.images) })
+            };
+
+        return {
+          id: item.id,
+          values: response.data[0].embedding,
+          metadata
+        };
+      })
+    );
+
+    // Upsert vectors to Pinecone
+    const pineconeIndex = await getPinecone();
+    await pineconeIndex.index(process.env.PINECONE_INDEX!).upsert(vectors);
+    console.log(`Successfully embedded ${vectors.length} items`);
+  } catch (error) {
+    console.error('Error in embedContent:', error);
+    throw error;
+  }
+}
+
+/**
+ * Search for relevant content using vector similarity
+ */
+export async function searchContent(query: string): Promise<VectorSearchResult[]> {
+  try {
+    const queryEmbedding = await openai.embeddings.create({
+      model: 'text-embedding-3-small',
+      input: query,
+    });
+
+    const pineconeIndex = pinecone.index(process.env.PINECONE_INDEX!);
+    const results = await pineconeIndex.query({
+      vector: queryEmbedding.data[0].embedding,
+      topK: 3,
+      includeMetadata: true,
+    });
+
+    return results.matches.map(match => {
+      const metadata = match.metadata as RecordMetadata & { type: string };
+      const type = metadata.type as 'faq' | 'doc';
+      
+      return {
+        id: metadata.id as string,
+        score: match.score ?? 0,
+        content: type === 'faq' 
+          ? {
+              id: metadata.id as string,
+              question: metadata.question as string,
+              answer: metadata.answer as string
+            }
+          : {
+              id: metadata.id as string,
+              title: metadata.title as string,
+              content: metadata.content as string,
+              images: metadata.imageData ? JSON.parse(metadata.imageData as string) : undefined
+            }
+      };
+    });
+  } catch (error) {
+    console.error('Error in searchContent:', error);
+    throw error;
+  }
+}
