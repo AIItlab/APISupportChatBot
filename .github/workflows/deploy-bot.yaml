@@ -3,7 +3,7 @@ name: Deploy Node + React App (Self-Hosted Windows)
 on:
   push:
     branches:
-      - main
+      - deploy-iis
 
 jobs:
   build-and-deploy:
