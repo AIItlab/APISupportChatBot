@@ -1,0 +1,195 @@
+'use client';
+
+import React, { useEffect, useState } from 'react';
+
+interface Section {
+  id: string;
+  title: string;
+  level: number;
+  subsections?: Section[];
+}
+
+interface NavLink {
+  title: string;
+  href: string;
+  subsections?: NavLink[];
+}
+
+const SidebarLink: React.FC<{ 
+  link: NavLink; 
+  activeSection: string; 
+  level?: number;
+  onClick?: () => void;
+}> = ({
+  link,
+  activeSection,
+  level = 0,
+  onClick
+}) => {
+  const [isExpanded, setIsExpanded] = useState(true);
+  const hasSubsections = link.subsections && link.subsections.length > 0;
+
+  return (
+    <div className="space-y-1">
+      <div className="flex items-center">
+        {hasSubsections && (
+          <button
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="p-1 hover:bg-gray-100 rounded mr-1"
+            aria-label={isExpanded ? 'Collapse section' : 'Expand section'}
+          >
+            <svg
+              className={`w-3 h-3 transform transition-transform ${isExpanded ? 'rotate-90' : ''}`}
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fillRule="evenodd"
+                d="M7.293 4.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L10.586 9 7.293 5.707a1 1 0 010-1.414z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </button>
+        )}
+        <a
+          href={link.href}
+          onClick={(e) => {
+            e.preventDefault();
+            const element = document.querySelector(link.href);
+            if (element) {
+              element.scrollIntoView({ behavior: 'smooth' });
+              if (onClick) onClick();
+            }
+          }}
+          className={`block py-1.5 px-3 rounded-md text-sm transition-colors flex-grow
+            ${activeSection === link.href.replace('#', '') ? 'bg-blue-50 text-blue-700 font-medium' : 'text-gray-700 hover:bg-gray-100'}
+            ${level > 0 ? 'ml-4' : ''}`}
+            ${activeSection === link.href ? 'bg-blue-50 text-blue-600 font-medium' : 'text-gray-600'}
+            ${level > 0 ? 'text-sm' : 'font-medium'}`}
+          style={{ marginLeft: `${level * 12}px` }}
+        >
+          {link.title}
+        </a>
+      </div>
+      {hasSubsections && isExpanded && link.subsections && (
+        <div className="ml-2">
+          {link.subsections.map((subsection) => (
+            <SidebarLink
+              key={subsection.href}
+              link={subsection}
+              activeSection={activeSection}
+              level={level + 1}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
+const convertSectionsToNavLinks = (sections: Section[]): NavLink[] => {
+  return sections.map(section => ({
+    title: section.title,
+    href: `#${section.id}`,
+    subsections: section.subsections ? convertSectionsToNavLinks(section.subsections) : undefined
+  }));
+};
+
+const gettingStartedLinks: NavLink = {
+  title: 'Getting Started',
+  href: '#getting-started',
+  subsections: [
+    { title: 'Authentication', href: '#authentication-getting-started' },
+    { title: 'Core Booking Flow', href: '#core-booking-flow', 
+      subsections: [
+        { title: 'Get Availability', href: '#get-availability' },
+        { title: 'Booking Quote', href: '#booking-quote' },
+        { title: 'Trip Sell', href: '#trip-sell' }
+      ]
+    },
+    { title: 'Passenger Management', href: '#passenger-management' },
+    { title: 'Optional Services', href: '#optional-services' },
+    { title: 'Payment & Confirmation', href: '#payment-confirmation' },
+    { title: 'Error Handling', href: '#error-handling' }
+  ]
+};
+
+const faqLinks: NavLink[] = [
+  {
+    title: 'Basic FAQs',
+    href: '#basic-faqs',
+    subsections: [
+      { title: 'General', href: '#basic-general' },
+      { title: 'Baggage', href: '#basic-baggage' },
+    ]
+  },
+  {
+    title: 'Advanced FAQs',
+    href: '#advanced-faqs',
+    subsections: [
+      { title: 'Integration', href: '#advanced-integration' },
+      { title: 'Troubleshooting', href: '#advanced-troubleshooting' },
+    ]
+  }
+];
+
+const Sidebar: React.FC = () => {
+  const [links, setLinks] = useState<NavLink[]>([]);
+  const [activeSection, setActiveSection] = useState<string>('');
+
+  useEffect(() => {
+    // Listen for documentation sections update
+    const handleSectionsUpdate = (event: CustomEvent<{ sections: Section[] }>) => {
+      const docLinks = [
+        gettingStartedLinks,
+        {
+          title: 'Documentation',
+          href: '#full-documentation',
+          subsections: convertSectionsToNavLinks(event.detail.sections)
+        },
+        ...faqLinks
+      ];
+      setLinks(docLinks);
+    };
+
+    window.addEventListener('documentationSectionsUpdated', handleSectionsUpdate as EventListener);
+
+    // Update active section based on scroll position
+    const handleScroll = () => {
+      const sections = Array.from(document.querySelectorAll('[id]')).reverse();
+      
+      for (const section of sections) {
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= 100) {
+          setActiveSection(`#${section.id}`);
+          break;
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Check initial position
+
+    // Initial links if no documentation sections are loaded yet
+    if (links.length === 0) {
+      setLinks([gettingStartedLinks, ...faqLinks]);
+    }
+
+    // Cleanup
+    return () => {
+      window.removeEventListener('documentationSectionsUpdated', handleSectionsUpdate as EventListener);
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  return (
+    <nav className="p-4 space-y-4">
+      <div className="text-sm font-medium text-gray-500 mb-2">Navigation</div>
+      {links.map((link) => (
+        <SidebarLink key={link.href} link={link} activeSection={activeSection} />
+      ))}
+    </nav>
+  );
+};
+
+export default Sidebar;
