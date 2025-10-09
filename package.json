@@ -22,7 +22,7 @@
     "@types/jsdom": "^21.1.7",
     "@types/mermaid": "^9.1.0",
     "ai": "^2.2.36",
-    "REDACTED": "^0.7.1",
+    "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "csv-parse": "^6.0.0",
     "dotenv": "^16.5.0",
@@ -59,4 +59,3 @@
     "typescript": "^5.8.3"
   }
 }
-
